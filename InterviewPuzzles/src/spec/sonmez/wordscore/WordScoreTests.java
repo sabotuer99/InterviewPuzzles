@@ -36,6 +36,24 @@ public class WordScoreTests {
 	}
 	
 	@Test
+	public void GivenNumberString_ScoreIs0() {
+		String word = "1846347 476467 464637";
+		
+		int score = WordScore.score(word);
+		
+		assertEquals(0, score);
+	}
+	
+	@Test
+	public void GivenSpecialCharacterString_ScoreIs0() {
+		String word = ")$(@^%^%*#*#(   *()(*#&#^#";
+		
+		int score = WordScore.score(word);
+		
+		assertEquals(0, score);
+	}
+	
+	@Test
 	public void GivenNull_ScoreIs0() {
 		String word = null;
 		
