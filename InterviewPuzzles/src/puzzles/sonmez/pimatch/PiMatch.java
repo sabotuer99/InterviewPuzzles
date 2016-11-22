@@ -4,6 +4,8 @@ public class PiMatch {
 
 	public static double score(long num) {
 		
+		num = Math.abs(num);
+		
 		if(num < 100){
 			return num - 314.0;
 		}

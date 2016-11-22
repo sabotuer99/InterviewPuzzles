@@ -18,6 +18,15 @@ public class PiMatchTests {
 	}
 	
 	@Test
+	public void Given_neg3149_GetCorrectCalcForPositiveNumber() {
+		long num = -3149;
+		
+		double score = PiMatch.score(num);
+		
+		assertEquals(-82.5, score, 0.0000001);
+	}
+	
+	@Test
 	public void Given_357878_GetCorrectCalc() {
 		long num = 3149;
 		
