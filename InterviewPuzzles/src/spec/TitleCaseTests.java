@@ -79,4 +79,39 @@ public class TitleCaseTests {
 		assertEquals("Blah and Blah", result);
 	}
 	
+	@Test
+	public void EmptyString_ReturnsEmptyString() {
+		String title = "";
+		
+		String result = TitleCase.toTitleCase(title);
+		
+		assertEquals("", result);
+	}
+	
+	@Test
+	public void NullInput_ReturnsEmptyString() {
+		
+		String result = TitleCase.toTitleCase(null);
+		
+		assertEquals("", result);
+	}
+	
+	@Test
+	public void NumericString_ReturnsSameString() {
+		String title = "1984";
+		
+		String result = TitleCase.toTitleCase(title);
+		
+		assertEquals("1984", result);
+	}
+	
+	@Test
+	public void SpecialCharactersString_ReturnsSameString() {
+		String title = "!@#$%$% ^&*())^ %$%$#$";
+		
+		String result = TitleCase.toTitleCase(title);
+		
+		assertEquals("!@#$%$% ^&*())^ %$%$#$", result);
+	}
+	
 }

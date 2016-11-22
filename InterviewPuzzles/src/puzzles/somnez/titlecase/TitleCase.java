@@ -9,6 +9,12 @@ public class TitleCase {
 			Arrays.asList("a", "the", "to", "at", "in", "with", "and", "but", "or");
 	
 	public static String toTitleCase(String title){
+		
+		//Guard Clauses
+		if("".equals(title) || title == null){
+			return "";
+		}
+			
 		// Lowercase the title string
 		String title_lower = title.toLowerCase();
 		
