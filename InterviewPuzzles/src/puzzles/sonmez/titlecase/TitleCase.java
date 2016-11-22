@@ -1,4 +1,4 @@
-package puzzles.somnez.titlecase;
+package puzzles.sonmez.titlecase;
 
 import java.util.Arrays;
 import java.util.List;

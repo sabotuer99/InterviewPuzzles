@@ -1,6 +1,6 @@
-package spec;
+package spec.sonmez.titlecase;
 
-import puzzles.somnez.titlecase.*;
+import puzzles.sonmez.titlecase.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
