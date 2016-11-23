@@ -10,6 +10,13 @@ public class Derivative {
 	public static Map<Integer, Integer> derive(Map<Integer, Integer> equation) {
 		Map<Integer, Integer> dx = new HashMap<>();
 		
+		for(Integer key : equation.keySet()){
+			if(key > 0){
+				Integer newCo = equation.get(key) * key;
+				dx.put(key -1 , newCo);
+			}
+		}
+		
 		return dx;
 	}
 	

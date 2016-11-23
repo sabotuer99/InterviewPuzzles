@@ -18,6 +18,8 @@ public class DerivativeTests {
 		Map<Integer,Integer> dx = Derivative.derive(equation);
 		
 		assertEquals("Incorrect Size", 2, dx.size());
+		assertEquals(6, (int)dx.get(1));
+		assertEquals(5, (int)dx.get(0));
 	}
 
 	@Test
