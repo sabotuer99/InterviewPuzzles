@@ -29,6 +29,16 @@ public class FindSumTests {
 	}
 	
 	@Test
+	public void CornerCase_Unsorted_CorrectAnswer() {
+		int[] nums = {4, 1, 2, 3};
+		int sum = 8;
+		
+		boolean result = FindSum.hasSumUnsorted(nums, sum);
+		
+		assertFalse(result);
+	}
+	
+	@Test
 	public void Example1_Unsorted_CorrectAnswer() {
 		int[] nums = {9, 1, 2, 3};
 		int sum = 8;
