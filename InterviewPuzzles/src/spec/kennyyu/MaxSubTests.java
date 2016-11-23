@@ -23,11 +23,20 @@ public class MaxSubTests {
 		
 		int max = MaxSub.maxsubarray(nums);
 		
-		assertEquals(7, max);
+		assertEquals(3, max);
 	}
 	
 	@Test
 	public void Test3_CorrectAnswer() {
+		int[] nums = {3,4,-3,-5,1,0,-1,2,-4,-2};
+		
+		int max = MaxSub.maxsubarray(nums);
+		
+		assertEquals(7, max);
+	}
+	
+	@Test
+	public void Test4_CorrectAnswer() {
 		int[] nums = {-5,0,-4,1,4,3,-2,-1,2,-3};
 		
 		int max = MaxSub.maxsubarray(nums);
