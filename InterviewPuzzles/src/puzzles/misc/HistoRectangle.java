@@ -8,4 +8,9 @@ package puzzles.misc;
 ************/
 public class HistoRectangle {
 
+	public static int maxRect(int[] histogram) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
