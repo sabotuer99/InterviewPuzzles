@@ -12,7 +12,12 @@ public class DerivativeTests {
 
 	@Test
 	public void SimpleQuadratic_CorrectResult() {
-		fail("Not Implemented");
+		String formula = "3x^2 + 5x + 2";
+		Map<Integer,Integer> equation = Derivative.parse(formula);
+		
+		Map<Integer,Integer> dx = Derivative.derive(equation);
+		
+		assertEquals("Incorrect Size", 2, dx.size());
 	}
 
 	@Test
@@ -22,7 +27,6 @@ public class DerivativeTests {
 		Map<Integer,Integer> parsed = Derivative.parse(formula);
 		
 		assertEquals("Incorrect Size", 3, parsed.size());
-
 		assertEquals(3, (int)parsed.get(2));
 		assertEquals(5, (int)parsed.get(1));
 		assertEquals(2, (int)parsed.get(0));
@@ -35,7 +39,6 @@ public class DerivativeTests {
 		Map<Integer,Integer> parsed = Derivative.parse(formula);
 		
 		assertEquals("Incorrect Size", 3, parsed.size());
-
 		assertEquals(-3, (int)parsed.get(2));
 		assertEquals(-5, (int)parsed.get(1));
 		assertEquals(2, (int)parsed.get(0));

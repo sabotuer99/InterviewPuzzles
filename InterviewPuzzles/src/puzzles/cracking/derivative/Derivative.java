@@ -7,6 +7,14 @@ import java.util.regex.Pattern;
 
 public class Derivative {
 
+	public static Map<Integer, Integer> derive(Map<Integer, Integer> equation) {
+		Map<Integer, Integer> dx = new HashMap<>();
+		
+		return dx;
+	}
+	
+	
+	
 	public static Map<Integer,Integer> parse(String formula) {
 		String[] symbols = formula.split(" ");
 		String regex = "([-]?)(\\d*)(x?)(\\^\\d+)?";
@@ -55,5 +63,7 @@ public class Derivative {
 		
 		return parsed;
 	}
+
+
 
 }
