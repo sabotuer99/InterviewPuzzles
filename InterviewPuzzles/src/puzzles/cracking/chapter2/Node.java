@@ -27,4 +27,8 @@ public class Node{
 		
 		return result;
 	}
+	
+	public String getId(){
+		return super.toString();
+	}
 }
