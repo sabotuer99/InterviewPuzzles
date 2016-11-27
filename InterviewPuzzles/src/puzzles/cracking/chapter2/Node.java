@@ -17,4 +17,14 @@ public class Node{
 	public void setVal(int val){
 		this.val = val;
 	}
+	
+	@Override
+	public String toString(){
+		String result = Integer.toString(val);
+		if(next != null){
+			result += " => " + next.toString();
+		}
+		
+		return result;
+	}
 }
