@@ -2,9 +2,9 @@ package puzzles.cracking.chapter2;
 
 public class Node{
 	
-	int val;
-	Node next = null;
-	Node prev = null;
+	public int val;
+	public Node next = null;
+	public Node prev = null;
 	
 	public Node(int val){
 		this.val = val;
@@ -12,5 +12,9 @@ public class Node{
 	
 	public int getVal(){
 		return val;
+	}
+	
+	public void setVal(int val){
+		this.val = val;
 	}
 }
