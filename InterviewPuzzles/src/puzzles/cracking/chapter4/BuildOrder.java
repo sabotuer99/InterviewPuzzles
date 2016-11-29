@@ -24,11 +24,11 @@ public class BuildOrder {
 			roots.remove(child);
 		}  //valid DAGs at this point 
 		
-		StringBuilder sb = new StringBuilder();
+		DagNode start = new DagNode("");
 		for(DagNode root : roots){
-			sb.append(root.printBFS());
-			sb.append(" ");
+			start.addChild(root);
 		}
-		return sb.toString().trim().split(" ");
+		
+		return start.printBFS().split(" ");
 	}
 }

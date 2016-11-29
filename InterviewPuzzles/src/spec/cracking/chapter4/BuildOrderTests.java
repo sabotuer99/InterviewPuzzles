@@ -55,6 +55,21 @@ public class BuildOrderTests {
 	}
 	
 	@Test
+	public void MultiRoot_ReturnsCorrectResult() {
+		String[] projects = {a,b,c,d,e};
+		String[][] dependencies = {{a,c}, {b,c}, {d,c}, {e,c}};
+		
+		String[] result = BuildOrder.computeOrder(projects, dependencies);
+		String order = Arrays.toString(result);
+		
+		System.out.println(order);
+		
+		assertNotNull(result);
+		assertEquals(5, result.length);
+		checkDeps(dependencies, order);
+	}
+	
+	@Test
 	public void AddDependencyTwice_IgnoresRepeatCall_ReturnsCorrectResult() {
 		String[] projects = {a,b,c};
 		String[][] dependencies = {{a,c}, {a,c}};
