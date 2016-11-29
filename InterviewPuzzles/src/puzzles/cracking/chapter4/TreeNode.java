@@ -55,5 +55,41 @@ public class TreeNode {
 		}
 		return candidate;
 	}
+
+	public TreeNode firstCommonAncestor(TreeNode other) {
+		if(other == null){
+			return null;
+		}
+		
+		TreeNode a = this;
+		TreeNode b = other;
+		int depthA = a.depth();
+		int depthB = b.depth();
+		//advance pointers to same depth
+		while(depthA != depthB){
+			if(depthA > depthB){
+				a = a.parent;
+				depthA--;
+			} else {
+				b = b.parent;
+				depthB--;
+			}
+		}
+		while(a != b && a.parent != null && b.parent != null){
+			a = a.parent;
+			b = b.parent;
+		}
+		return a == b ? a : null;
+	}
+
+	private int depth() {
+		TreeNode finger = this;
+		int depth = 0;
+		while(finger.parent != null){
+			finger = finger.parent;
+			depth++;
+		}
+		return depth;
+	}
 	
 }
