@@ -69,8 +69,16 @@ public class BuildOrderTests {
 		checkDeps(dependencies, order);
 	}
 	
-
-
+	@Test
+	public void AddTailCycle_ReturnsNull() {
+		String[] projects = {a,b,c};
+		String[][] dependencies = {{a,c}, {b,c}, {c,b}};
+		
+		String[] result = BuildOrder.computeOrder(projects, dependencies);
+		
+		assertNull(result);
+	}
+	
 
 	private void checkDeps(String[][] dependencies, String order) {
 		for(String[] dep : dependencies){
