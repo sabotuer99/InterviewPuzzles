@@ -22,7 +22,7 @@ public class DagNode {
 		children.add(child);
 		child.parents.add(this);
 		
-		if(roots(this) == null){ //call root() to check for cycles
+		if(roots(child) == null){ //call root() to check for cycles
 			return false;
 		}
 		return true;
