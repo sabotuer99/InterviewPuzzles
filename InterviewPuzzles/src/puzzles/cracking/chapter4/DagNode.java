@@ -10,7 +10,7 @@ import java.util.Set;
 public class DagNode {
 
 	private String id;
-	private DagNode parent;
+	private Set<DagNode> parents = new HashSet<>();
 	private Set<DagNode> children = new HashSet<>();
 	
 	public DagNode(String id){
@@ -20,23 +20,33 @@ public class DagNode {
 	public boolean addChild(DagNode child){
 
 		children.add(child);
-		child.parent = this;
+		child.parents.add(this);
 		
-		if(root() == null){ //call root() to check for cycles
+		if(roots(this) == null){ //call root() to check for cycles
 			return false;
 		}
 		return true;
 	}
 
-	private DagNode root() {
-		DagNode root = this;
-		while(root.parent != null && root.parent != this){
-			root = root.parent;
+	private Set<DagNode> roots(DagNode cycleCheck) {
+
+		Set<DagNode> roots = new HashSet<>();
+		if(parents.size() == 0){		
+			roots.add(this);
+			return roots;
 		}
-		if(root.parent == this){
-			return null;
+		
+		for(DagNode parent : parents){
+			if(parent == cycleCheck){
+				return null;
+			}
+			Set<DagNode> proots = parent.roots(cycleCheck);
+			if(proots == null){
+				return null;
+			}
+			roots.addAll(proots);
 		}
-		return root;
+		return roots;
 	}
 	
 	public String printBFS(){
