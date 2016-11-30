@@ -38,6 +38,34 @@ public class BitUtils {
 	}
 	
 	/**
+	 * Clears the ith bit from an integer.  A mask of all
+	 * ones is generated, except a 0 in the ith position. This is
+	 * AND'ed with teh origin value
+	 * 
+	 * @param value, where the bit is to be cleared from
+	 * @param i, the position of the bit
+	 * @return the modified value
+	 */
+	public static int clearBit(int value, int i){
+		int mask = andMask(i);
+		return value & mask;
+	}
+	
+	/**
+	 * Sets the ith value to the value of bit, which should be 1 or 0.
+	 * 
+	 * @param value, where the bit is coming from
+	 * @param i, the position of the bit
+	 * @param bit, the value to update to. Odd = 1, Even = 0
+	 * @return the modified value
+	 */
+	public static int updateBit(int value, int i, int bit){
+		bit = bit & 1; 
+			
+		return clearBit(value, i) | (bit << (i-1));
+	}
+	
+	/**
 	 * Creates a mask with 1s from the 0 to ith bits.
 	 * 
 	 * <p>i = 4:  00001111

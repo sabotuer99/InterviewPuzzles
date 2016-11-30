@@ -104,8 +104,7 @@ public class BitUtilsTests {
 		
 		for(int i = 0; i < 8; i++){
 			assertEquals("Bit " + (i+1) + ": ", expected[i], bits[7-i]);
-		}
-		
+		}		
 	}
 	
 	@Test 
@@ -120,6 +119,41 @@ public class BitUtilsTests {
 		for(int i = 0; i < 8; i++){
 			assertEquals("Bit " + (i+1) + ": ", expected[i], bits[7-i]);
 		}
+	}
+	
+	
+	@Test 
+	public void ClearBit(){
+		// 127 = 01111111
+		int cb1 = BitUtils.clearBit(127, 3);
+		int cb2 = BitUtils.clearBit(127, 5);
+		int cb3 = BitUtils.clearBit(127, 8);
 		
+		assertEquals("01111011", BitUtils.toBitString(cb1));
+		assertEquals("01101111", BitUtils.toBitString(cb2));
+		assertEquals("01111111", BitUtils.toBitString(cb3));
+	}
+	
+	@Test 
+	public void UpdateBit(){
+		// 127 = 01111111
+		// 1   = 00000001 
+		int ub1 = BitUtils.updateBit(127, 3, 0);
+		int ub2 = BitUtils.updateBit(127, 8, 1);
+		int ub3 = BitUtils.updateBit(127, 3, 1);
+		int ub4 = BitUtils.updateBit(127, 8, 0);
+		int ub5 = BitUtils.updateBit(1, 3, 0);
+		int ub6 = BitUtils.updateBit(1, 8, 1);
+		int ub7 = BitUtils.updateBit(1, 3, 1);
+		int ub8 = BitUtils.updateBit(1, 8, 0);
+		
+		assertEquals("01111011", BitUtils.toBitString(ub1));
+		assertEquals("00000000 11111111", BitUtils.toBitString(ub2));
+		assertEquals("01111111", BitUtils.toBitString(ub3));
+		assertEquals("01111111", BitUtils.toBitString(ub4));
+		assertEquals("00000001", BitUtils.toBitString(ub5));
+		assertEquals("00000000 10000001", BitUtils.toBitString(ub6));
+		assertEquals("00000101", BitUtils.toBitString(ub7));
+		assertEquals("00000001", BitUtils.toBitString(ub8));
 	}
 }
