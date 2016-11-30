@@ -9,8 +9,7 @@ package puzzles.cracking.chapter5;
 public class BitUtils {
 
 	/**
-	 * This method sets the <em>i<em>th bit of the
-	 * provided integer to 1
+	 * Sets the ith bit of the provided integer to 1
 	 * 
 	 * <p>This is done by creating a mask consisting of
 	 * 1 at the appropriate position, with all other digits 
@@ -27,7 +26,8 @@ public class BitUtils {
 	}
 	
 	/**
-	 * Gets the ith bit from an integer.
+	 * Gets the ith bit from an integer.  The value is 
+	 * right shifted i-1 positions and AND'ed with 1.
 	 * 
 	 * @param value, where the bit is coming from
 	 * @param i, the position of the bit
