@@ -146,4 +146,19 @@ public class BitUtils {
 		}
 	}
 	
+	public static int fromBitString(String bits){
+		if(bits == null || bits.length() == 0){
+			return 0;
+		}
+		
+		int parsed = 0;
+		for(char bit : bits.toCharArray()){
+			if(bit != ' '){
+				parsed <<= 1;
+				parsed += bit == '1' ? 1 : 0;
+			}
+		}
+		
+		return parsed;
+	}	
 }

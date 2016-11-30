@@ -156,4 +156,29 @@ public class BitUtilsTests {
 		assertEquals("00000101", BitUtils.toBitString(ub7));
 		assertEquals("00000001", BitUtils.toBitString(ub8));
 	}
+	
+	@Test 
+	public void FromBitString(){
+		// 127 = 01111111
+		// 1   = 00000001 
+		int b1 = BitUtils.fromBitString("01111011");
+		int b2 = BitUtils.fromBitString("01111111 11111111 11111111 11111111");
+		int b3 = BitUtils.fromBitString("10000000 00000000 00000000 00000000");
+		int b4 = BitUtils.fromBitString("11111111 11111111 11111111 11111111");
+		int b5 = BitUtils.fromBitString("1011");
+		int b6 = BitUtils.fromBitString("1");
+		int b7 = BitUtils.fromBitString("0");
+		int b8 = BitUtils.fromBitString("");
+		int b9 = BitUtils.fromBitString(null);
+		
+		assertEquals(123, b1);
+		assertEquals(Integer.MAX_VALUE, b2);
+		assertEquals(Integer.MIN_VALUE, b3);
+		assertEquals(-1, b4);
+		assertEquals(11, b5);
+		assertEquals(1, b6);
+		assertEquals(0, b7);
+		assertEquals(0, b8);
+		assertEquals(0, b9);
+	}
 }
