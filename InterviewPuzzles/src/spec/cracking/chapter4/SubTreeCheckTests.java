@@ -167,9 +167,8 @@ public class SubTreeCheckTests {
 		int levels = 20;
 		TreeNode root = getGenTree(levels);
 		
-		TreeNode finger = root;
-		
 		/*  //Had to use this to figure out the far right corner
+		TreeNode finger = root;
 		while(finger.right.right != null){
 			finger = finger.right;
 		}
