@@ -115,6 +115,18 @@ public class BitUtils {
 		return ~(1 << (i-1));
 	}
 	
+	
+	/**
+	 * Converts an integer into a String representation
+	 * of binary.  Numbers in the byte range [-128, 127] are shortened
+	 * to one octet.  Numbers in the short range [-32768, 32767] are shortened
+	 * to two octets.  Otherwise, four octets are returned.
+	 * 
+	 * <p>i = 4:   11110111
+	 * 
+	 * @param value the number to be stringified
+	 * @return the string of 1s and 0s
+	 */
 	public static String toBitString(int value){
 		int x = value;
 		StringBuilder sb = new StringBuilder();
