@@ -34,7 +34,7 @@ public class BitUtils {
 	 * @return 1 or 0
 	 */
 	public static int getBit(int value, int i){
-		return 1 & (value >> (i-1));
+		return 1 & (value >> (i));
 	}
 	
 	/**
@@ -62,13 +62,13 @@ public class BitUtils {
 	public static int updateBit(int value, int i, int bit){
 		bit = bit & 1; 
 			
-		return clearBit(value, i) | (bit << (i-1));
+		return clearBit(value, i) | (bit << (i));
 	}
 	
 	/**
 	 * Creates a mask with 1s from the 0 to ith bits.
 	 * 
-	 * <p>i = 4:  00001111
+	 * <p>i = 3:  00001111
 	 * 
 	 * @param i the number of 1s in the mask
 	 * @return the value of the mask
@@ -80,7 +80,7 @@ public class BitUtils {
 	/**
 	 * Creates a mask with 1s from the ith to last bits.
 	 *
-	 * <p>i = 5:  11110000
+	 * <p>i = 4:  11110000
 	 * 
 	 * @param i the number of 1s in the mask
 	 * @return the value of the mask
@@ -93,26 +93,26 @@ public class BitUtils {
 	 * Sets a bit at position i, with the rest
 	 * zeros
 	 * 
-	 * <p>i = 4:   00001000
+	 * <p>i = 3:   00001000
 	 * 
 	 * @param i position of the set bit
 	 * @return the value of the mask
 	 */
 	public static int orMask(int i){
-		return 1 << (i-1);
+		return 1 << (i);
 	}
 	
 	/**
 	 * All bits are ones, except one zero
 	 * at postion i
 	 * 
-	 * <p>i = 4:   11110111
+	 * <p>i = 3:   11110111
 	 * 
 	 * @param i position of the set bit
 	 * @return the value of the mask
 	 */
 	public static int andMask(int i){
-		return ~(1 << (i-1));
+		return ~(1 << (i));
 	}
 	
 	
@@ -121,8 +121,6 @@ public class BitUtils {
 	 * of binary.  Numbers in the byte range [-128, 127] are shortened
 	 * to one octet.  Numbers in the short range [-32768, 32767] are shortened
 	 * to two octets.  Otherwise, four octets are returned.
-	 * 
-	 * <p>i = 4:   11110111
 	 * 
 	 * @param value the number to be stringified
 	 * @return the string of 1s and 0s
