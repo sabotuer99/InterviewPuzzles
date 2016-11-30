@@ -27,6 +27,17 @@ public class BitUtils {
 	}
 	
 	/**
+	 * Gets the ith bit from an integer.
+	 * 
+	 * @param value, where the bit is coming from
+	 * @param i, the position of the bit
+	 * @return 1 or 0
+	 */
+	public static int getBit(int value, int i){
+		return 1 & (value >> (i-1));
+	}
+	
+	/**
 	 * Creates a mask with 1s from the 0 to ith bits.
 	 * 
 	 * <p>i = 4:  00001111

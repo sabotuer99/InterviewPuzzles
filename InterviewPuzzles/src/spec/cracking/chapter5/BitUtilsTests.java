@@ -92,4 +92,34 @@ public class BitUtilsTests {
 		assertEquals("00010000", bitStr2);
 		assertEquals("01000000", bitStr3);
 	}
+	
+	@Test 
+	public void GetBit_11(){
+		// 11 = 00001011
+		int[] expected = {0,0,0,0,1,0,1,1}; 
+		int[] bits = new int[8];
+		for(int i = 0; i < 8; i++){
+			bits[i] = BitUtils.getBit(11,i+1);
+		}
+		
+		for(int i = 0; i < 8; i++){
+			assertEquals("Bit " + (i+1) + ": ", expected[i], bits[7-i]);
+		}
+		
+	}
+	
+	@Test 
+	public void GetBit_Minus1(){
+		// -1 = 11111111
+		int[] expected = {1,1,1,1,1,1,1,1}; 
+		int[] bits = new int[8];
+		for(int i = 0; i < 8; i++){
+			bits[i] = BitUtils.getBit(-1,i+1);
+		}
+		
+		for(int i = 0; i < 8; i++){
+			assertEquals("Bit " + (i+1) + ": ", expected[i], bits[7-i]);
+		}
+		
+	}
 }
