@@ -160,6 +160,8 @@ public class SubTreeCheckTests {
 		TreeNode root = getGenTree(10);
 		
 		TreeNode finger = root;
+		
+		/*  //Had to use this to figure out the far right corner
 		while(finger.right.right != null){
 			finger = finger.right;
 		}
@@ -167,7 +169,7 @@ public class SubTreeCheckTests {
 		System.out.println("    " + finger.value);
 		System.out.println("   /   \\");
 		System.out.println(finger.left.value + "   " + finger.right.value);
-		
+		*/
 		
 		TreeNode b1 = new TreeNode(1020);
 		TreeNode e1 = new TreeNode(1021);
