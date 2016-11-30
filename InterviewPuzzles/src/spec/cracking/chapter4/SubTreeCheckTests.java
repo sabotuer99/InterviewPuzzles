@@ -141,23 +141,31 @@ public class SubTreeCheckTests {
 	
 	@Test
 	public void HugeGeneratedTree_SubTreeInLeftCorner_ReturnTrue() {
-		TreeNode root = getGenTree(10);
+		int levels = 20;
+		TreeNode root = getGenTree(levels);
 		
-		TreeNode b1 = new TreeNode(8);
-		TreeNode e1 = new TreeNode(9);
-		TreeNode f1 = new TreeNode(10);
+		TreeNode b1 = new TreeNode(levels - 2);
+		TreeNode e1 = new TreeNode(levels - 1);
+		TreeNode f1 = new TreeNode(levels);
 		b1.setLeft(e1);
 		b1.setRight(f1);
 		
+		long now = System.currentTimeMillis();
 		boolean result = SubTreeCheck.isSubTreeNaive(root, b1);
+		System.out.println("Naive approach took: " + (System.currentTimeMillis() - now));
+		
+		now = System.currentTimeMillis();
 		boolean result2 = SubTreeCheck.isSubTree(root, b1);
+		System.out.println("Smart approach took: " + (System.currentTimeMillis() - now));
+		
 		assertTrue(result2);
 		assertTrue(result);
 	}
 	
 	@Test
 	public void HugeGeneratedTree_SubTreeInRightCorner_ReturnTrue() {
-		TreeNode root = getGenTree(10);
+		int levels = 20;
+		TreeNode root = getGenTree(levels);
 		
 		TreeNode finger = root;
 		
@@ -171,14 +179,20 @@ public class SubTreeCheckTests {
 		System.out.println(finger.left.value + "   " + finger.right.value);
 		*/
 		
-		TreeNode b1 = new TreeNode(1020);
-		TreeNode e1 = new TreeNode(1021);
-		TreeNode f1 = new TreeNode(1022);
+		TreeNode b1 = new TreeNode((1 << levels) - 4);
+		TreeNode e1 = new TreeNode((1 << levels) - 3);
+		TreeNode f1 = new TreeNode((1 << levels) - 2);
 		b1.setLeft(e1);
 		b1.setRight(f1);
 		
+		long now = System.currentTimeMillis();
 		boolean result = SubTreeCheck.isSubTreeNaive(root, b1);
+		System.out.println("Naive approach took: " + (System.currentTimeMillis() - now));
+		
+		now = System.currentTimeMillis();
 		boolean result2 = SubTreeCheck.isSubTree(root, b1);
+		System.out.println("Smart approach took: " + (System.currentTimeMillis() - now));
+		
 		assertTrue(result2);
 		assertTrue(result);
 	}

@@ -36,7 +36,7 @@ public class SubTreeCheck {
 	private static int calls = 0;
 	private static boolean findKey(StringBuilder sb, TreeNode node, String key) {
 		calls++;
-		System.out.println(sb.toString());
+		//System.out.println(sb.toString());
 		
 		if(key == null || node == null){
 			return false;
