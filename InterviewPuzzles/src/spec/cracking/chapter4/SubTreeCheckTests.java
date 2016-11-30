@@ -31,6 +31,8 @@ public class SubTreeCheckTests {
 		assertEquals("L4R2L5R1L6R3L7R", sb.toString());
 		
 		boolean result = SubTreeCheck.isSubTreeNaive(root, b);
+		boolean result2 = SubTreeCheck.isSubTree(root, b);
+		assertTrue(result2);
 		assertTrue(result);
 	}
 	
@@ -103,6 +105,8 @@ public class SubTreeCheckTests {
 		d.right = null;
 		e.parent = null;
 		boolean result = SubTreeCheck.isSubTreeNaive(root, e);
+		boolean result2 = SubTreeCheck.isSubTree(root, e);
+		assertFalse(result2);
 		assertFalse(result);
 	}
 
@@ -129,6 +133,67 @@ public class SubTreeCheckTests {
 		b1.setRight(f1);
 		
 		boolean result = SubTreeCheck.isSubTreeNaive(root, b1);
+		boolean result2 = SubTreeCheck.isSubTree(root, b1);
+		assertTrue(result2);
 		assertTrue(result);
+		
+	}
+	
+	@Test
+	public void HugeGeneratedTree_SubTreeInLeftCorner_ReturnTrue() {
+		TreeNode root = getGenTree(10);
+		
+		TreeNode b1 = new TreeNode(8);
+		TreeNode e1 = new TreeNode(9);
+		TreeNode f1 = new TreeNode(10);
+		b1.setLeft(e1);
+		b1.setRight(f1);
+		
+		boolean result = SubTreeCheck.isSubTreeNaive(root, b1);
+		boolean result2 = SubTreeCheck.isSubTree(root, b1);
+		assertTrue(result2);
+		assertTrue(result);
+	}
+	
+	@Test
+	public void HugeGeneratedTree_SubTreeInRightCorner_ReturnTrue() {
+		TreeNode root = getGenTree(10);
+		
+		TreeNode finger = root;
+		while(finger.right.right != null){
+			finger = finger.right;
+		}
+		System.out.println("Subtree Config: ");
+		System.out.println("    " + finger.value);
+		System.out.println("   /   \\");
+		System.out.println(finger.left.value + "   " + finger.right.value);
+		
+		
+		TreeNode b1 = new TreeNode(1020);
+		TreeNode e1 = new TreeNode(1021);
+		TreeNode f1 = new TreeNode(1022);
+		b1.setLeft(e1);
+		b1.setRight(f1);
+		
+		boolean result = SubTreeCheck.isSubTreeNaive(root, b1);
+		boolean result2 = SubTreeCheck.isSubTree(root, b1);
+		assertTrue(result2);
+		assertTrue(result);
+	}
+	
+	private TreeNode getGenTree(int levels){
+		nodeNum = 0;
+		return genTree(levels);
+	}
+	
+	private int nodeNum = 0;
+	private TreeNode genTree(int levels){
+		TreeNode root = new TreeNode(nodeNum);
+		nodeNum++;
+		if(levels > 1){
+			root.setLeft(genTree(levels-1));
+			root.setRight(genTree(levels-1));
+		}
+		return root;
 	}
 }
