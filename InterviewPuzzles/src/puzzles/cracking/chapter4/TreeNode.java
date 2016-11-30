@@ -1,5 +1,8 @@
 package puzzles.cracking.chapter4;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TreeNode {
 
 	public TreeNode(int value){
@@ -10,6 +13,17 @@ public class TreeNode {
 	public TreeNode left;
 	public TreeNode right;
 	public int value;
+	
+	public List<TreeNode> getChildren(){
+		List<TreeNode> children = new ArrayList<>();
+		if(left != null){
+			children.add(left);
+		}
+		if(right != null){
+			children.add(right);
+		}
+		return children;
+	}
 	
 	public void setLeft(TreeNode child){
 		left = child;
