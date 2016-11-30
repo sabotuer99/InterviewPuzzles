@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class CheckBalanced {
 
+	@SuppressWarnings("unused")
 	private static String[] nodes = {"", "root", "a", "b", "c", "d", "e", "f"};
 	
 	

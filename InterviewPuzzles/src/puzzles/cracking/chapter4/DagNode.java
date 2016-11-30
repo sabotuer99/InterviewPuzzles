@@ -1,10 +1,8 @@
 package puzzles.cracking.chapter4;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class DagNode {

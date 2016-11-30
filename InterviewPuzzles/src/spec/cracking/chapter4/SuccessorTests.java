@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import puzzles.cracking.chapter4.CheckBalanced;
 import puzzles.cracking.chapter4.TreeNode;
 
 public class SuccessorTests {

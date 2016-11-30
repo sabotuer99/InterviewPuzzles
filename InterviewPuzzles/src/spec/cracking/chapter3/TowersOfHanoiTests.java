@@ -1,6 +1,6 @@
 package spec.cracking.chapter3;
 
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 
 import org.junit.Test;
 

@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import puzzles.cracking.chapter2.DeleteNode;
 import puzzles.cracking.chapter2.ListAdder;
 import puzzles.cracking.chapter2.Node;
 import puzzles.cracking.chapter2.SingleLinkedList;
