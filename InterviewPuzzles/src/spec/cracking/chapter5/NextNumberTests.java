@@ -40,6 +40,21 @@ public class NextNumberTests {
 	}
 	
 	@Test
+	public void BookSmaller_Given7() {
+		
+		int test = BitUtils.fromBitString("111");
+		int expected = BitUtils.fromBitString("11100000 00000000 00000000 00000000");
+		
+		
+		
+		int result = NextNumber.getPrev(test);
+		
+		System.out.println(BitUtils.toBitString(result));
+		
+		assertEquals(expected, result);
+	}
+	
+	@Test
 	public void NextSmaller_MoreComplex() {
 		
 		int test = BitUtils.fromBitString("1101001");
@@ -78,6 +93,18 @@ public class NextNumberTests {
 		
 		int test = BitUtils.fromBitString("1101001");
 		int expected = BitUtils.fromBitString("1101010");
+		System.out.println(test + " " + expected);
+		
+		int result = NextNumber.nextBigger(test);
+		
+		assertEquals(expected, result);
+	}
+	
+	@Test
+	public void NextBigger_BookTestCase() {
+		
+		int test = BitUtils.fromBitString("11100");
+		int expected = BitUtils.fromBitString("100011");
 		System.out.println(test + " " + expected);
 		
 		int result = NextNumber.nextBigger(test);
