@@ -8,6 +8,10 @@ package puzzles.cracking.chapter5;
  */
 public class BitUtils {
 
+	public static final int EVEN_BITS = 1431655765;
+	public static final int ODD_BITS = -1431655766;
+	
+	
 	/**
 	 * Sets the ith bit of the provided integer to 1
 	 * 
