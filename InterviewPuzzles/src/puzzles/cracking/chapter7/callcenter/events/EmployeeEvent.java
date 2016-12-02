@@ -8,4 +8,8 @@ public class EmployeeEvent{
 	public EmployeeEvent(Employee emp){
 		this.emp = emp;
 	}
+	
+	public Employee getEmployee(){
+		return emp;
+	}
 }
