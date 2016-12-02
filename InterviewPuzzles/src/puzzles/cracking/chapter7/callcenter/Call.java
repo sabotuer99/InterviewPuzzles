@@ -10,7 +10,9 @@ public class Call {
 	private int satisfactionThreshold;
 	private List<String> unsatisfiedResponses;
 	private List<String> satisfiedResponses;
-
+	private String startTimeStamp;
+	private String endTimeStamp;	
+	
 	public boolean isSatisfied() {
 		return isSatisfied;
 	}
@@ -35,7 +37,7 @@ public class Call {
 	}
 	
 	public String serviceFeedback(){
-		if(isSatisfied){
+		if(!isSatisfied){
 			return getUnsatisfiedResponse();
 		} else {
 			return getSatisfiedResponse();
@@ -81,6 +83,22 @@ public class Call {
 
 	public void setSatisfactionThreshold(int satisfactionThreshold) {
 		this.satisfactionThreshold = satisfactionThreshold;
+	}
+
+	public String getStartTimeStamp() {
+		return startTimeStamp;
+	}
+
+	public void setStartTimeStamp(String startTimeStamp) {
+		this.startTimeStamp = startTimeStamp;
+	}
+
+	public String getEndTimeStamp() {
+		return endTimeStamp;
+	}
+
+	public void setEndTimeStamp(String endTimeStamp) {
+		this.endTimeStamp = endTimeStamp;
 	}
 	
 	

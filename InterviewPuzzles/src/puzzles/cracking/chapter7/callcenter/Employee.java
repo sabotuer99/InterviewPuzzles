@@ -2,6 +2,7 @@ package puzzles.cracking.chapter7.callcenter;
 
 import puzzles.cracking.chapter7.callcenter.events.CallEvent;
 import puzzles.cracking.chapter7.callcenter.events.CallEventHandler;
+import puzzles.cracking.chapter7.callcenter.events.EmployeeEvent;
 import puzzles.cracking.chapter7.callcenter.events.EmployeeEventHandler;
 import puzzles.cracking.chapter7.callcenter.events.LogEvent;
 import puzzles.cracking.chapter7.callcenter.events.LogEventHandler;
@@ -21,24 +22,41 @@ public class Employee {
 	public Employee(){
 		canEscalate = true;
 		minServiceLevel = 0;
-		maxServiceLevel = 0;
+		maxServiceLevel = 100;
 		patience = 3;
 	}
 	
 	public void service(Call call){
 		boolean success = false;
 		String callerId = call.getId();
-		for(int i = 0; i < patience; i++){
+		for(int i = 0; i < patience && !success; i++){
+			talkToCustomer();
 			int service = provideService();
+			//System.out.println(service);
 			success = call.receiveService(service);
+			//System.out.println(success);
 			String feedback = call.serviceFeedback();
-			logger.handle(new LogEvent(callerId + ": " + feedback));
+			//System.out.println(feedback);
+			logger.handle(new LogEvent(callerId + ": " + feedback));		
 		}
 		
 		if(success || !canEscalate){
+			//System.out.println("Resolved!");
 			resolvedListener.handle(new CallEvent(call, this));
+			freeListener.handle(new EmployeeEvent(this));
 		} else {
+			//System.out.println("Escalated!");
 			escalateListener.handle(new CallEvent(call, this));
+			freeListener.handle(new EmployeeEvent(this));
+		}
+	}
+
+	public void talkToCustomer() {
+		//System.out.println(name + " talking to caller...");
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 	

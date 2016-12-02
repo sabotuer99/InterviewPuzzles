@@ -1,5 +1,6 @@
 package puzzles.cracking.chapter7.callcenter;
 
+import java.sql.Timestamp;
 import java.util.Deque;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ExecutorService;
@@ -24,31 +25,71 @@ public class CallCenter {
 	Deque<Call> waitingRespondent = new ConcurrentLinkedDeque<>();
 	Deque<Call> waitingManager = new ConcurrentLinkedDeque<>();
 	Deque<Call> waitingDirector = new ConcurrentLinkedDeque<>();
-		
+
+	
+	public void acceptCall(Call call){
+		call.setStartTimeStamp(new Timestamp(System.currentTimeMillis()).toString());
+		Employee rep = availableRespondents.poll();
+		String caller = call.getId();
+		if(rep == null){	
+			waitingRespondent.offer(call);
+			log("No Representative available, queueing call from " + caller);
+		} else {
+			assignToCall(rep, call);
+			log("Representative "+ rep.getName() +" taking call from " + caller);
+		}
+	}
+	
+	public void addRespondent(Employee employee){
+		employee.setEscalateListener(escToManagerHandler);
+		employee.setFreeListener(repFreeHandler);
+		employee.setResolvedListener(resolvedListener);
+		employee.setLogger(logger);
+		availableRespondents.offer(employee);
+	}
+	
+	public void addManager(Employee employee){
+		employee.setEscalateListener(escToDirectorHandler);
+		employee.setFreeListener(manFreeHandler);
+		employee.setResolvedListener(resolvedListener);
+		employee.setLogger(logger);
+		availableManagers.offer(employee);
+	}
+	
+	public void addDirector(Employee employee){
+		employee.setCanEscalate(false);
+		employee.setEscalateListener(null);
+		employee.setFreeListener(dirFreeHandler);
+		employee.setResolvedListener(resolvedListener);
+		employee.setLogger(logger);
+		availableDirectors.offer(employee);
+	}
+	
+	ExecutorService executor = Executors.newCachedThreadPool();
+	public void assignToCall(Employee employee, Call call){
+		Runnable task = new Runnable(){
+			@Override
+			public void run() {
+				employee.service(call);
+			}};
+		executor.submit(task);
+	}
+	
+	/*
+	 * EVENT HANDLERS
+	 * 
+	 */
+	
 	LogEventHandler logger = new LogEventHandler(){
 		@Override
-		public void handle(LogEvent logevent) {
-			log(logevent.getMessage());
-		}};
-	
-	public void log(String message){
-		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%1$-" + 56 + "s", message));
-		sb.append("# ");
-		sb.append(currentState());
-		System.out.println(sb.toString());
-	}
-
-	private String currentState() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%1$-" + 4 + "s", waitingRespondent.size()));
-		sb.append(String.format("%1$-" + 4 + "s", waitingManager.size()));
-		sb.append(String.format("%1$-" + 4 + "s", waitingDirector.size()));
-		sb.append(String.format("%1$-" + 4 + "s", availableRespondents.size()));
-		sb.append(String.format("%1$-" + 4 + "s", availableManagers.size()));
-		sb.append(String.format("%1$-" + 4 + "s", availableDirectors.size()));
-		return sb.toString();
-	}
+		public void handle(final LogEvent logevent) {
+			try{
+				log(logevent.getMessage());
+			} catch (Exception ex){
+				ex.printStackTrace();
+			}
+		}
+	};
 	
 	CallEventHandler escToManagerHandler = new CallEventHandler(){
 		@Override
@@ -86,7 +127,7 @@ public class CallCenter {
 				log("No Director available, queueing call from " + caller);
 				waitingManager.offer(e.getCall());
 			} else {	
-				log("Manager "+ director.getName() +" taking call from " + caller);
+				log("Director "+ director.getName() +" taking call from " + caller);
 				assignToCall(director, e.getCall());
 			}
 		}
@@ -117,20 +158,6 @@ public class CallCenter {
 		}	
 	};
 	
-	CallEventHandler resolvedListener = new CallEventHandler(){
-		@Override
-		public void handle(CallEvent e) {
-			Call call = e.getCall();
-			if(call.isSatisfied()){
-				satisfiedCallers++;
-				log(call.getId() + " was satisfied with " + e.getEmployee().getName() + "'s service!");
-			} else {
-				unhappyCallers++;
-				log(call.getId() + " was NOT satisfied with " + e.getEmployee().getName() + "'s service! Boo!");
-			}
-		}
-	};
-	
 	private void employeeNextCall(Call next, Deque<Employee> empQueue, Employee emp, String title){
 		if(next == null){
 			log(title + " " + emp.getName() + " is free, awaiting calls...");
@@ -141,32 +168,41 @@ public class CallCenter {
 		}
 	}
 	
-	public void addRespondent(Employee employee){
-		employee.setEscalateListener(escToManagerHandler);
-		employee.setFreeListener(repFreeHandler);
-		employee.setResolvedListener(resolvedListener);
-	}
+	CallEventHandler resolvedListener = new CallEventHandler(){
+		@Override
+		public void handle(CallEvent e) {
+			Call call = e.getCall();
+			call.setEndTimeStamp(new Timestamp(System.currentTimeMillis()).toString());
+			if(call.isSatisfied()){
+				satisfiedCallers++;
+				log(call.getId() + " was satisfied with " + e.getEmployee().getName() + "'s service!");
+			} else {
+				unhappyCallers++;
+				log(call.getId() + " was NOT satisfied with " + e.getEmployee().getName() + "'s service! Boo!");
+			}
+		}
+	};
 	
-	public void addManager(Employee employee){
-		employee.setEscalateListener(escToDirectorHandler);
-		employee.setFreeListener(manFreeHandler);
-		employee.setResolvedListener(resolvedListener);
-	}
+	/*
+	 * LOGGING
+	 */
 	
-	public void addDirector(Employee employee){
-		employee.setCanEscalate(false);
-		employee.setEscalateListener(null);
-		employee.setFreeListener(dirFreeHandler);
-		employee.setResolvedListener(resolvedListener);
+	public void log(String message){
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("%1$-" + 56 + "s", message));
+		sb.append("# ");
+		sb.append(currentState());
+		System.out.println(sb.toString());
 	}
-	
-	ExecutorService executor = Executors.newCachedThreadPool();
-	public void assignToCall(Employee employee, Call call){
-		Runnable task = new Runnable(){
-			@Override
-			public void run() {
-				employee.service(call);
-			}};
-		executor.submit(task);
+
+	private String currentState() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("%1$-" + 4 + "s", waitingRespondent.size()));
+		sb.append(String.format("%1$-" + 4 + "s", waitingManager.size()));
+		sb.append(String.format("%1$-" + 4 + "s", waitingDirector.size()));
+		sb.append(String.format("%1$-" + 4 + "s", availableRespondents.size()));
+		sb.append(String.format("%1$-" + 4 + "s", availableManagers.size()));
+		sb.append(String.format("%1$-" + 4 + "s", availableDirectors.size()));
+		return sb.toString();
 	}
 }
