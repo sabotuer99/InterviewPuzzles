@@ -10,6 +10,16 @@ import puzzles.cracking.chapter5.DrawLine;
 public class DrawLineTests {
 
 	@Test
+	public void DrawLine_Diagonal(){
+		byte[] screen = new byte[80];
+		int width = 80;
+		
+		DrawLine.drawLine(screen, width, 0, 80, 0, 7);
+		
+		printScreen(screen, width);
+	}
+	
+	@Test
 	public void DrawHorizontal(){
 		byte[] screen = new byte[80];
 		int width = 80;
@@ -23,7 +33,20 @@ public class DrawLineTests {
 		assertEquals(0, screen[38]);
 		assertEquals(-1, screen[34]);
 		
-		printScreen(screen, width);
+		//printScreen(screen, width);
+	}
+	
+	@Test
+	public void DrawHorizontal_LastPixel(){
+		byte[] screen = new byte[80];
+		int width = 80;
+		int x1 = 21;
+		int x2 = 80;
+		int y = 7;
+		DrawLine.drawHorizontal(screen, width, x1, x2, y);
+		
+		assertEquals(-1, screen[79]);
+		//printScreen(screen, width);
 	}
 	
 	@Test
@@ -56,7 +79,7 @@ public class DrawLineTests {
 		assertEquals(0, screen[38]);
 		assertEquals(-1, screen[34]);
 		
-		printScreen(screen, width);
+		//printScreen(screen, width);
 	}
 	
 	@Test
