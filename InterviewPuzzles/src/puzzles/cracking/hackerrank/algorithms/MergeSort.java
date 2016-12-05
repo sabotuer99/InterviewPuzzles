@@ -18,7 +18,7 @@ public class MergeSort {
         merge(array, temp, leftStart, middle, rightEnd);
     }
     
-    private static int inversions = 0;
+    private static long inversions = 0;
     public static void merge(int[] array, int[] temp, int leftStart, int middle, int rightEnd){
         int leftEnd = middle;
         int rightStart = middle + 1;
@@ -46,7 +46,8 @@ public class MergeSort {
     }
     
     public static long countInversions(int[] arr){
-        mergesort(arr);
+        inversions = 0;
+    	mergesort(arr);
         return inversions;
     }
   
