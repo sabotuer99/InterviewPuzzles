@@ -2,7 +2,7 @@ package puzzles.cracking.chapter7.jukebox.state;
 
 import puzzles.cracking.chapter7.jukebox.Coin;
 import puzzles.cracking.chapter7.jukebox.Record;
-import puzzles.cracking.chapter7.jukebox.state.BaseState.InternalState;
+import puzzles.cracking.chapter7.jukebox.state.InternalState;
 
 public class LoadedState extends BaseState {
 
@@ -12,20 +12,29 @@ public class LoadedState extends BaseState {
 	
 	@Override
 	public State insertCoin(Coin coin) {
-		// TODO Auto-generated method stub
-		return null;
+		internalState.addCoin(coin);
+		if(internalState.enoughMoney()){
+			internalState.makeChange();
+			return new ReadyState(internalState);
+		} else {
+			return new PartialPaidState(internalState);
+		}
 	}
 
 	@Override
 	public State insertRecord(Record record) {
-		// TODO Auto-generated method stub
-		return null;
+		internalState.addRecord(record);
+		return this;
 	}
 
 	@Override
 	public State removeRecord(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		internalState.removeRecord(index);
+		if(internalState.isLoaded()){
+			return this;
+		} else {
+			return returnCoins();
+		}
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package puzzles.cracking.chapter7.jukebox.state;
 
 import puzzles.cracking.chapter7.jukebox.Coin;
 import puzzles.cracking.chapter7.jukebox.Record;
-import puzzles.cracking.chapter7.jukebox.state.BaseState.InternalState;
 
 public class ReadyState extends BaseState {
 
