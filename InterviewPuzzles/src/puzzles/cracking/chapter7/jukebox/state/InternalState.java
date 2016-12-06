@@ -1,6 +1,7 @@
 package puzzles.cracking.chapter7.jukebox.state;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -24,6 +25,10 @@ public class InternalState{
 	private int songPrice = 0;
 	private int currentBalance = 0;
 	
+	public void addCoinToSafe(Coin coin){
+		safe.add(coin);
+	}
+	
 	public void addCoinToReturn(Coin coin){
 		coinReturn.add(coin);
 	}
@@ -41,8 +46,18 @@ public class InternalState{
 	}
 	
 	public void returnCoins(){
-		coinReturn.addAll(coins);
+		
+		if(currentBalance > 0 && coins.size() > 0){
+			coinReturn.addAll(coins);		
+		} else {  
+			safe.addAll(coins);
+			List<Coin> coinsToReturn = makeChange(currentBalance, safe);
+			safe.removeAll(coinsToReturn);
+			coinReturn.addAll(coinsToReturn);
+		}
+		
 		coins = new ArrayList<>();
+		currentBalance = 0;
 	}
 	
 	public int getSongPrice() {
@@ -56,17 +71,17 @@ public class InternalState{
 			return;
 		}
 		
-		List<Coin> allCoins = new ArrayList<>(coins);
-		allCoins.addAll(safe);
+		safe.addAll(coins);
 
-		List<Coin> returned = makeChange(difference, allCoins);
+		List<Coin> returned = makeChange(difference, safe);
 		
 		for(Coin coin : returned){
-			if(!coins.remove(coin)){
-				safe.remove(coin);
-			}
-			addCoinToReturn(coin);
+			currentBalance -= coin.value;
 		}
+		
+		safe.removeAll(returned);
+		coinReturn.addAll(returned);
+		coins = new ArrayList<>();
 	}
 
 	private Comparator<Coin> coinComparator = new Comparator<Coin>(){
@@ -79,17 +94,27 @@ public class InternalState{
 		//sort collection
 		Collections.sort(allCoins, coinComparator);
 		int[] valueArray = new int[allCoins.size()];
-		int[][] DP = new int[valueArray.length][difference];
+		
+		for(int i = 0; i < allCoins.size(); i++){
+			valueArray[i] = allCoins.get(i).value;
+		}
+		
+		int[][] DP = new int[valueArray.length][difference+1];
 		
 		for(int row = 0; row < DP.length; row++){
 			for(int col = 0; col < DP[0].length; col++){
 				int val = valueArray[row];
-				if(val > col || row == 0){ //this value is too big for this column
+				if(val > col){ //this value is too big for this column
 					DP[row][col] = row == 0 ? 0 : DP[row-1][col];
 				} else {
 					//handle boundary conditions
-					int rest = DP[row - 1][col - val];
-					DP[row][col] = Math.max(DP[row-1][col], val + rest); //max without value and with value
+					if(row == 0){
+						DP[row][col] = val;
+					} else {
+						int rest = DP[row - 1][col - val];
+						int withOut = DP[row - 1][col];
+						DP[row][col] = Math.max(withOut, val + rest); //max without value and with value
+					}
 				}
 				//if we have an exact match return early
 				if(DP[row][col] == difference){
@@ -98,11 +123,21 @@ public class InternalState{
 			}
 		}
 		
+
+		
 		//trackback from last element, which is the best we can do
-		return trackBack(DP, DP.length - 1, DP[0].length, allCoins);
+		return trackBack(DP, DP.length - 1, DP[0].length - 1, allCoins);
 	}
 
 	private List<Coin> trackBack(int[][] DP, int lastrow, int lastcol, List<Coin> allCoins) {
+		
+		//DEBUG
+		System.out.printf("(%d, %d): %d\n",lastrow, lastcol,DP[lastrow][lastcol]);
+		for(int row = 0; row < DP.length; row++){
+			System.out.println(Arrays.toString(DP[row]));
+		}
+		
+		
 		List<Coin> coins = new ArrayList<>();
 		int row = lastrow;
 		int col = lastcol;
@@ -110,11 +145,13 @@ public class InternalState{
 			Coin coin = allCoins.get(row);
 			int val = coin.value;
 			
-			if(DP[row][col-val] + val >= DP[row-1][col]){
+			int rest = col - val < 0 ? 0 : DP[row][col-val];
+			
+			if( rest + val == DP[row][col]){
 				coins.add(coin);
 				col -= val;			
 			}
-			row --;
+			row--;
 		}
 		
 		return coins;

@@ -1,4 +1,4 @@
-package spec.cracking.chapter7;
+package spec.cracking.chapter7.callcenter;
 
 import org.junit.Test;
 
