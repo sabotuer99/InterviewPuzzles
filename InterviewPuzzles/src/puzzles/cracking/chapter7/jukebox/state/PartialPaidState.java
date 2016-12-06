@@ -11,32 +11,41 @@ public class PartialPaidState extends BaseState {
 	
 	@Override
 	public State insertCoin(Coin coin) {
-		// TODO Auto-generated method stub
-		return null;
+		internalState.addCoin(coin);
+		if(internalState.enoughMoney()){
+			internalState.makeChange();
+			return new ReadyState(internalState);
+		} else {
+			return this;
+		}
 	}
 
 	@Override
 	public State insertRecord(Record record) {
-		// TODO Auto-generated method stub
-		return null;
+		internalState.addRecord(record);
+		return this;
 	}
 
 	@Override
 	public State removeRecord(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		internalState.removeRecord(index);
+		if(internalState.isLoaded()){
+			return this;
+		} else {
+			internalState.returnCoins();
+			return new UnloadedState(internalState);
+		}
 	}
 
 	@Override
 	public State returnCoins() {
-		// TODO Auto-generated method stub
-		return null;
+		internalState.returnCoins();
+		return new LoadedState(internalState);
 	}
 
 	@Override
 	public State makeSelection(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 }

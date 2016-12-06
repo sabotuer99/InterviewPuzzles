@@ -33,20 +33,18 @@ public class LoadedState extends BaseState {
 		if(internalState.isLoaded()){
 			return this;
 		} else {
-			return returnCoins();
+			return new UnloadedState(internalState);
 		}
 	}
 
 	@Override
 	public State returnCoins() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override
 	public State makeSelection(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 }

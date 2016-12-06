@@ -45,17 +45,17 @@ public class InternalState{
 		coins = new ArrayList<>();
 	}
 	
-	public void returnCoins(){
-		
-		if(currentBalance > 0 && coins.size() > 0){
-			coinReturn.addAll(coins);		
-		} else {  
-			safe.addAll(coins);
-			List<Coin> coinsToReturn = makeChange(currentBalance, safe);
-			safe.removeAll(coinsToReturn);
-			coinReturn.addAll(coinsToReturn);
-		}
-		
+	public void returnCoinsFromSafe(){
+		safe.addAll(coins);
+		List<Coin> coinsToReturn = makeChange(currentBalance, safe);
+		safe.removeAll(coinsToReturn);
+		coinReturn.addAll(coinsToReturn);
+		coins = new ArrayList<>();
+		currentBalance = 0;
+	}
+	
+	public void returnCoins(){		
+		coinReturn.addAll(coins);		
 		coins = new ArrayList<>();
 		currentBalance = 0;
 	}
