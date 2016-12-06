@@ -12,6 +12,7 @@ public interface State {
 	State returnCoins();
 	State makeSelection(int index);
 	
+	String status();
 	List<String> getAvailableSongs();
 	int getCoinBalance();
 	List<Coin> emptyCoinReturn();

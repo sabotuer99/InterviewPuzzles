@@ -38,5 +38,10 @@ public class ReadyState extends BaseState {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public String status() {
+		return "Ready";
+	}
 
 }

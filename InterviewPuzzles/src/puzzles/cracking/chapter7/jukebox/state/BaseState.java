@@ -1,6 +1,5 @@
 package puzzles.cracking.chapter7.jukebox.state;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import puzzles.cracking.chapter7.jukebox.Coin;
@@ -39,6 +38,9 @@ public abstract class BaseState implements State {
 	public List<Coin> emptyCoinReturn() {
 		return internalState.emptyCoinReturn();
 	}
+
+	@Override
+	public abstract String status();
 
 
 }

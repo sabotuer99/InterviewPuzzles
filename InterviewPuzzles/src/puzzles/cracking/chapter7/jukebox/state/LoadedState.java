@@ -47,4 +47,11 @@ public class LoadedState extends BaseState {
 		return this;
 	}
 
+	@Override
+	public String status() {
+		return "Loaded";
+	}
+	
+
+
 }

@@ -47,5 +47,10 @@ public class PartialPaidState extends BaseState {
 	public State makeSelection(int index) {
 		return this;
 	}
+	
+	@Override
+	public String status() {
+		return "Partially Paid";
+	}
 
 }

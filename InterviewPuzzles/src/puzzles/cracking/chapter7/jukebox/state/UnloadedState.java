@@ -40,5 +40,10 @@ public class UnloadedState extends BaseState {
 	public State makeSelection(int index) {
 		return this;
 	}
+	
+	@Override
+	public String status() {
+		return "Unloaded";
+	}
 
 }
