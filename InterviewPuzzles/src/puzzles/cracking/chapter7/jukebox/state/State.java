@@ -16,4 +16,6 @@ public interface State {
 	List<String> getAvailableSongs();
 	int getCoinBalance();
 	List<Coin> emptyCoinReturn();
+	int getReturnedBalance();
+	Record songToPlay();
 }

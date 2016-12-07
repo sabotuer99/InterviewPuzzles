@@ -11,32 +11,40 @@ public class ReadyState extends BaseState {
 	
 	@Override
 	public State insertCoin(Coin coin) {
-		// TODO Auto-generated method stub
-		return null;
+		internalState.addCoinToReturn(coin);
+		return this;
 	}
 
 	@Override
 	public State insertRecord(Record record) {
-		// TODO Auto-generated method stub
-		return null;
+		internalState.addRecord(record);
+		return this;
 	}
 
 	@Override
 	public State removeRecord(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		internalState.removeRecord(index);
+		if(internalState.isLoaded()){
+			return this;
+		} else {
+			internalState.returnCoins();
+			return new UnloadedState(internalState);
+		}
 	}
 
 	@Override
 	public State returnCoins() {
-		// TODO Auto-generated method stub
-		return null;
+		internalState.returnCoins();
+		return new LoadedState(internalState);
 	}
 
 	@Override
 	public State makeSelection(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		Record songToPlay = internalState.getSong(index);
+		internalState.setSongToPlay(songToPlay);
+		internalState.moveCoinsToSafe();
+		internalState.setCurrentBalance(0);
+		return new LoadedState(internalState);
 	}
 	
 	@Override

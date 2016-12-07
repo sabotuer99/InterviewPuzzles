@@ -42,5 +42,14 @@ public abstract class BaseState implements State {
 	@Override
 	public abstract String status();
 
+	@Override
+	public int getReturnedBalance(){
+		return internalState.getReturnedBalance();
+	}
+	
+	@Override
+	public Record songToPlay(){
+		return internalState.getSongToPlay();
+	}
 
 }

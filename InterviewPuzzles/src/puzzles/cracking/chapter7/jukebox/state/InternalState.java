@@ -24,12 +24,16 @@ public class InternalState{
 	private List<Record> removedRecords = new ArrayList<>();
 	private int songPrice = 0;
 	private int currentBalance = 0;
+	private int returnedBalance = 0;
+	private Record songToPlay = null;
+	
 	
 	public void addCoinToSafe(Coin coin){
 		safe.add(coin);
 	}
 	
 	public void addCoinToReturn(Coin coin){
+		returnedBalance += coin.value;
 		coinReturn.add(coin);
 	}
 	
@@ -77,6 +81,7 @@ public class InternalState{
 		
 		for(Coin coin : returned){
 			currentBalance -= coin.value;
+			returnedBalance += coin.value;
 		}
 		
 		safe.removeAll(returned);
@@ -182,6 +187,7 @@ public class InternalState{
 	public List<Coin> emptyCoinReturn() {
 		List<Coin> coins = coinReturn;
 		coinReturn = new ArrayList<>();
+		returnedBalance = 0;
 		return coins;
 	}
 	
@@ -195,5 +201,25 @@ public class InternalState{
 			titles.add(record.title);
 		}
 		return titles;
+	}
+
+	public int getReturnedBalance() {
+		return returnedBalance;
+	}
+
+	public Record getSongToPlay() {
+		return songToPlay;
+	}
+
+	public void setSongToPlay(Record songToPlay) {
+		this.songToPlay = songToPlay;
+	}
+
+	public Record getSong(int index) {
+		return records.get(index);
+	}
+
+	public void setCurrentBalance(int currentBalance) {
+		this.currentBalance = currentBalance;
 	}
 }
