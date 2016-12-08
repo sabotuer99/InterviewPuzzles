@@ -1,7 +1,9 @@
 package puzzles.cracking.chapter8;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Permutations {
 
@@ -16,8 +18,18 @@ public class Permutations {
 		}
 		
 		int len = word.length();
+		Set<String> seen = new HashSet<>();
+		
 		for(int i = 0; i < len; i++){
 			String letter = word.substring(i, i+1);
+			
+			//prevent dupes
+			if(seen.contains(letter)){
+				continue;
+			} else {
+				seen.add(letter);
+			}
+			
 			String front = i == 0 ? "" : word.substring(0, i);
 			String back = i == len - 1 ? "" : word.substring(i+1, len);
 			List<String> subPerms = permutations(front + back);

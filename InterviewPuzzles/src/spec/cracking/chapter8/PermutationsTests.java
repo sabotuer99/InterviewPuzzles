@@ -11,6 +11,33 @@ import puzzles.cracking.chapter8.Permutations;
 public class PermutationsTests {
 
 	@Test
+	public void AAAAAAA_returns1permutations(){
+		String test = "AAAAAAA";
+		
+		List<String> perms = Permutations.permutations(test);
+		
+		assertEquals(1, perms.size());
+	}
+	
+	@Test
+	public void ABAAAAAA_returns8permutations(){
+		String test = "ABAAAAAA";
+		
+		List<String> perms = Permutations.permutations(test);
+		
+		assertEquals(8, perms.size());
+	}
+	
+	@Test
+	public void ABCA_returns12permutations(){
+		String test = "abca";
+		
+		List<String> perms = Permutations.permutations(test);
+		
+		assertEquals(12, perms.size());
+	}
+	
+	@Test
 	public void ABC_returns6permutations(){
 		String test = "abc";
 		
