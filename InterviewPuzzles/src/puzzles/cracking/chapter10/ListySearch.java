@@ -32,14 +32,6 @@ public class ListySearch {
 			System.out.println(index);
 			
 			int value = test.elementAt(index);
-
-			/*if(value == -1){ //overshot
-				growing = false;
-				index -= factor;
-				factor /= 2;
-				continue;
-				value = Integer.MAX_VALUE;
-			}*/
 			
 			if(target == value){
 				found = true;
