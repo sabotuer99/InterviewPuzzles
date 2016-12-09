@@ -23,4 +23,20 @@ public class AnagramSortTests {
 		
 		assertEquals(1, Math.abs(annaIndex - naanIndex) );
 	}
+	
+	@Test
+	public void AnagramBiggerSortTest(){
+		String[] words = {"anna", "banana", "apple", "naan", "butt" , "ananab", "paple", "moon"};
+		
+		String[] result = AnagramSort.anagramSort(words);
+		List<String> resultList = Arrays.asList(result);
+		
+		int ind1 = resultList.indexOf("anna");
+		int ind2 = resultList.indexOf("naan");
+		int ind3 = resultList.indexOf("paple");
+		int ind4 = resultList.indexOf("apple");
+		
+		assertEquals(1, Math.abs(ind1 - ind2));
+		assertEquals(1, Math.abs(ind3 - ind4));
+	}
 }
