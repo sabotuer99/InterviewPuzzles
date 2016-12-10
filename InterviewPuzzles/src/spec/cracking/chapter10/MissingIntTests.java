@@ -2,6 +2,7 @@ package spec.cracking.chapter10;
 
 import static org.junit.Assert.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import puzzles.cracking.chapter10.MissingInt;
@@ -20,6 +21,25 @@ public class MissingIntTests {
 		assertEquals(686227456, result);
 	}
 	
+	@Test
+	public void ConfirmResultNotProducedByRandomGenerator(){
+		
+		BigFile test = new MissingInt.BigFile(42);
+		int fileSize = 100000000;
+		
+		int result = MissingInt.getNewInt(test, fileSize);
+		
+		boolean found = false;
+		test.resetCursor();
+		for(int i = 0; i < fileSize; i++){
+			int val = test.nextInt();
+			found = found || val == result;
+		}
+		
+		assertFalse(found);
+	}
+	
+	@Ignore //this test takes ~60 seconds
 	@Test
 	public void BigTest(){
 		
