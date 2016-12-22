@@ -59,4 +59,17 @@ public class SubstringTests {
 		
 		assertEquals(1, result);
 	}
+	
+	@Test
+	public void RepeatedPatternAndText(){
+		String text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+		String pattern = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+		
+		System.out.println("\n\nStart repeated test, Pattern: " + pattern.length() + "  Text: " + text.length());
+		int result1 = Substring.findMatchesNaive(pattern, text);
+		int result2 = Substring.findMatchesKMP(pattern, text);
+		System.out.println("End repeated test\n\n");
+		
+		assertEquals(result2, result1);
+	}
 }
