@@ -2,6 +2,8 @@ package spec.kennyyu.bitwise;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 import puzzles.kennyyu.bitwise.PowerOfTwo;
@@ -33,5 +35,4 @@ public class PowerOfTwoTests {
 		assertFalse(v88);
 		assertFalse(v120);
 	}
-
 }
