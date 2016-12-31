@@ -1,11 +1,10 @@
 package puzzles.kennyyu.datastructures;
 
+public class SingleListCycle {
 
-public class ReverseList {
-	
-	private static class Node{
+	public static class Node{
 		int data;
-		Node next;
+		public Node next;
 		public Node(int data){
 			this.data = data;
 		}
@@ -13,8 +12,7 @@ public class ReverseList {
 	
 	public static class SingleList{
 		
-		
-		Node head;
+		public Node head;
 		
 		public void add(int data){
 			Node node = new Node(data);
@@ -45,23 +43,26 @@ public class ReverseList {
 			return sb.toString();
 		}
 	}
-
-	public static void reverse(SingleList list) {
-		if(list.head == null){
-			return;
-		}
-		
-		Node next = list.head.next;
-		Node current = list.head;
-		list.head.next = null;
-		
-		while(next != null){
-			current = next;
-			next = next.next;
-			current.next = list.head;
-			list.head = current;
-		}
-		
-	}
 	
+	public static boolean hasCycle(SingleList list){
+		if(list == null || list.head == null || list.head.next == null){
+			return false;
+		}
+		
+		Node tort = list.head;
+		Node hare = list.head.next;
+		
+		while(tort != null && hare != null){
+			if(tort == hare){
+				return true;
+			}
+			tort = tort.next;
+			hare = hare.next;
+			if(hare != null){
+				hare = hare.next;
+			}
+		}
+		
+		return false;
+	}
 }
