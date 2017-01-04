@@ -62,10 +62,10 @@ public class WeightedIntervalSchedule {
 					totals[i] = inclusiveWeight;
 					backpointers[i] = j;
 				}
-				if(max < inclusiveWeight){
-					max = inclusiveWeight;
-					maxIndex = i;
-				}
+			}
+			if(max < totals[i]){
+				max = totals[i];
+				maxIndex = i;
 			}
 		}
 		
