@@ -30,6 +30,16 @@ public class SubPermutationsTests {
 		assertEquals(6, count);
 	}
 	
+	@Test
+	public void falsePositives(){
+		String pattern = "abba";
+		String text = "bbbacccccaaabcccccabababa";
+		
+		int count = SubPermutations.subPermutations(pattern, text);
+		
+		assertEquals(4, count);
+	}
+	
 	
 	@Test
 	public void DoubleTest(){

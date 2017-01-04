@@ -23,7 +23,7 @@ public class SubPermutations {
 		int count = 0;
 		
 		for(int i = 0; i <= text.length() - pattern.length(); i++){
-			if(p.hash == t.hash){
+			if(p.hash() == t.hash()){
 				count += sameCounts(p, t) ? 1 : 0;
 			}
 			
@@ -31,6 +31,7 @@ public class SubPermutations {
 			if(i < text.length() - pattern.length()){
 				char drop = text.charAt(i);
 				char add = text.charAt(i + pattern.length());
+				System.out.printf("dropping %c, adding %c, hash: %d\n", drop, add, t.hash());
 				updateCounts(t, drop, add);
 			}
 		}
@@ -83,7 +84,7 @@ public class SubPermutations {
 		public void dec(char key){
 			int index = key - 'a';
 			counts[index]--;
-			if(counts[index] < 0){
+			if(counts[index] <= 0){
 				counts[index] = 0;
 				int mask = ~(1 << (key - 'a'));
 				hash &= mask;
