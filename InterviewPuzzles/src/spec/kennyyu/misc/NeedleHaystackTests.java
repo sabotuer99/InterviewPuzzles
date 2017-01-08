@@ -1,4 +1,4 @@
-package spec.misc;
+package spec.kennyyu.misc;
 
 import static org.junit.Assert.*;
 
