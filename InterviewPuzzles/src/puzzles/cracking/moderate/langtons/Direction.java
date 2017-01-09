@@ -2,14 +2,14 @@ package puzzles.cracking.moderate.langtons;
 
 public abstract class Direction {
 
-	public abstract Point walkForward(Point from);
+	public abstract Point inFront(Point from);
 	public abstract Direction turnClockwise();
 	public abstract Direction turnCounterClockwise();
 	
 	public static class East extends Direction {
 
 		@Override
-		public Point walkForward(Point from) {
+		public Point inFront(Point from) {
 			return new Point(from.x + 1, from.y);
 		}
 
@@ -28,7 +28,7 @@ public abstract class Direction {
 	public static class West extends Direction {
 
 		@Override
-		public Point walkForward(Point from) {
+		public Point inFront(Point from) {
 			return new Point(from.x - 1, from.y);
 		}
 
@@ -47,7 +47,7 @@ public abstract class Direction {
 	public static class North extends Direction {
 
 		@Override
-		public Point walkForward(Point from) {
+		public Point inFront(Point from) {
 			return new Point(from.x, from.y + 1);
 		}
 
@@ -66,7 +66,7 @@ public abstract class Direction {
 	public static class South extends Direction {
 
 		@Override
-		public Point walkForward(Point from) {
+		public Point inFront(Point from) {
 			return new Point(from.x, from.y - 1);
 		}
 

@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class Board {
 
-	private final char BLACK = 'X';
-	private final char WHITE = ' ';
+	public final char BLACK = 'X';
+	public final char WHITE = ' ';
 	
 	private Map<String, Character> touched = new HashMap<>();
 	private int minx = 0; 
@@ -17,11 +17,13 @@ public class Board {
 	public Character getGridSquare(Point coord){
 		Character data = touched.get(coord.toString());
 		if(data == null){
+			return WHITE;
+			/*
 			if(isOdd(coord.x) == isOdd(coord.y)){
 				return BLACK;
 			} else {
 				return WHITE;
-			}
+			}*/
 		} else {
 			return data;
 		}

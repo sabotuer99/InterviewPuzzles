@@ -14,9 +14,9 @@ public class BoardTests {
 		
 		Board sut = new Board();
 		String result = sut.toString();
-		String expected = "X X\n" + 
-		                  " X \n" + 
-				          "X X\n";
+		String expected = "   \n" + 
+		                  "   \n" + 
+				          "   \n";
 		
 		System.out.println(result);
 		
@@ -29,10 +29,10 @@ public class BoardTests {
 		Board sut = new Board();
 		sut.flipGridSquare(new Point(0,1));
 		String result = sut.toString();
-		String expected = " X \n" +
-				          "XXX\n" + 
-		                  " X \n" + 
-				          "X X\n";
+		String expected = "   \n" +
+				          " X \n" + 
+		                  "   \n" + 
+				          "   \n";
 		
 		System.out.println(result);
 		
