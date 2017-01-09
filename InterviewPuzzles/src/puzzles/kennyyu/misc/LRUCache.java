@@ -1,5 +1,6 @@
 package puzzles.kennyyu.misc;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -31,15 +32,23 @@ public class LRUCache<K,T> {
 		if(!cache.containsKey(key)){
 			return null;
 		}
+		//System.out.println("Pre:" + Arrays.toString(timestamps.values().toArray()));
+		
+		
 		Item cached = cache.get(key);
+		timestamps.remove(cached.timestamp);
+		
+		//System.out.println(Arrays.toString(timestamps.values().toArray()));
 		cached.timestamp = timemap(key);
+		
+		//System.out.println("Post:" + Arrays.toString(timestamps.values().toArray()));
 		cache.put(key, cached);
 		return cached.value;
 	}
 	
 	public void expel(){
 		Entry<Long, K> oldest = timestamps.pollFirstEntry();
-		cache.remove(oldest.getKey());
+		cache.remove(oldest.getValue());
 	}
 	
 	public void remove(K key){
