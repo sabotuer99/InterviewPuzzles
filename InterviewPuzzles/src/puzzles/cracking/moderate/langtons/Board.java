@@ -44,8 +44,8 @@ public class Board {
 	@Override
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
-		for(int row = miny - 1; row < maxy + 1; row++){
-			for(int col = minx - 1; col < maxx + 1; col++){
+		for(int row = maxy + 1; row >= miny - 1; row--){
+			for(int col = minx - 1; col <= maxx + 1; col++){
 				sb.append(getGridSquare(new Point(col, row)));
 			}
 			sb.append("\n");
